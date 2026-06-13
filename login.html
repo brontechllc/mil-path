@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign In — MilPath</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root { --navy: #0D1F35; --navy-mid: #1a3352; --gold: #C49A28; --gold-light: #d4af3a; --text: #0f1923; --muted: #5a6a7e; --border: #dde3ee; --white: #ffffff; --slate: #f2f4f8; }
+body { font-family: 'Inter', sans-serif; background: var(--navy); min-height: 100vh; display: flex; flex-direction: column; }
+nav {
+  padding: 0 5%; height: 66px;
+  display: flex; align-items: center; justify-content: space-between;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+.nav-logo { font-size: 20px; font-weight: 800; color: #fff; text-decoration: none; display: flex; align-items: center; gap: 10px; }
+.nav-logo span { color: var(--gold); }
+.nav-back { font-size: 13px; color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.2s; display: flex; align-items: center; gap: 6px; }
+.nav-back:hover { color: #fff; }
+.main { flex: 1; display: flex; align-items: center; justify-content: center; padding: 40px 24px; }
+.card {
+  background: #fff; border-radius: 16px; padding: 48px 44px;
+  width: 100%; max-width: 420px;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.3);
+}
+.card-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+.card-title { font-size: 26px; font-weight: 800; color: var(--text); margin-bottom: 6px; letter-spacing: -0.3px; }
+.card-sub { font-size: 14px; color: var(--muted); margin-bottom: 32px; }
+.form-group { margin-bottom: 18px; }
+.form-label { display: block; font-size: 12px; font-weight: 600; color: var(--text); margin-bottom: 7px; letter-spacing: 0.3px; }
+.form-input {
+  width: 100%; padding: 13px 16px; border: 1.5px solid var(--border);
+  border-radius: 10px; font-size: 15px; font-family: inherit;
+  color: var(--text); outline: none; transition: border-color 0.2s;
+  background: var(--slate);
+}
+.form-input:focus { border-color: var(--gold); background: #fff; }
+.form-input::placeholder { color: #aab; }
+.error-msg { display: none; font-size: 13px; color: #c0392b; margin-top: 8px; background: #fdf0ee; border: 1px solid #f5c6c0; border-radius: 8px; padding: 10px 14px; }
+.error-msg.show { display: block; }
+.btn-submit {
+  width: 100%; padding: 14px; background: var(--gold); border: none;
+  border-radius: 10px; font-size: 15px; font-weight: 700; color: #fff;
+  cursor: pointer; font-family: inherit; transition: background 0.2s;
+  margin-top: 8px; display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+.btn-submit:hover { background: var(--gold-light); }
+.card-footer { margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--border); text-align: center; font-size: 13px; color: var(--muted); }
+.card-footer a { color: var(--gold); text-decoration: none; font-weight: 600; }
+footer { padding: 20px 5%; text-align: center; border-top: 1px solid rgba(255,255,255,0.07); }
+footer p { font-size: 12px; color: rgba(255,255,255,0.3); }
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo">Mil<span>Path</span></a>
+  <a href="index.html" class="nav-back"><i class="ti ti-arrow-left"></i> Back to home</a>
+</nav>
+
+<div class="main">
+  <div class="card">
+    <div class="card-eyebrow">Welcome back</div>
+    <div class="card-title">Sign in to MilPath</div>
+    <p class="card-sub">Your transition roadmap is waiting.</p>
+
+    <div class="form-group">
+      <label class="form-label">Email address</label>
+      <input type="email" class="form-input" id="email" placeholder="you@example.com">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Password</label>
+      <input type="password" class="form-input" id="password" placeholder="••••••••" onkeydown="if(event.key==='Enter')login()">
+    </div>
+    <div class="error-msg" id="error">Incorrect credentials. Please try again.</div>
+    <button class="btn-submit" onclick="login()">Sign In <i class="ti ti-arrow-right"></i></button>
+
+    <div class="card-footer">
+      Don't have an account? <a href="index.html#waitlist">Join the waitlist</a>
+    </div>
+  </div>
+</div>
+
+<footer><p>© 2026 MilPath · A Bron Technologies product</p></footer>
+
+<script>
+function login() {
+  const pw = document.getElementById('password').value;
+  const err = document.getElementById('error');
+  if (pw === 'milpathprelaunch') {
+    sessionStorage.setItem('milpath_auth', '1');
+    window.location.href = 'dashboard.html';
+  } else {
+    err.classList.add('show');
+    document.getElementById('password').focus();
+  }
+}
+</script>
+</body>
+</html>
