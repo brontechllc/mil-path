@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MilPath — Your AI-Powered Military Transition Advisor</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<meta name="description" content="MilPath is an AI-powered military transition advisor that turns your Military Occupational Code, years of service, and goals into a personalized civilian roadmap — resume translation, benefits maximization, career matching, and more.">
+<meta name="keywords" content="military transition, veteran resources, MOS translator, GI Bill, VA benefits, military to civilian, TAP program, veteran career">
+<meta name="author" content="Bron Technologies">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://mil-path.com/">
+<meta property="og:title" content="MilPath — Your AI-Powered Military Transition Advisor">
+<meta property="og:description" content="Turn your military service into a civilian career. Personalized roadmap, resume translation, benefits breakdown, and a 90-day action plan — built by a veteran, for veterans.">
+<meta property="og:image" content="https://mil-path.com/logo.png">
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:url" content="https://mil-path.com/">
+<meta property="twitter:title" content="MilPath — Your AI-Powered Military Transition Advisor">
+<meta property="twitter:description" content="Turn your military service into a civilian career. Personalized roadmap, resume translation, benefits breakdown, and a 90-day action plan — built by a veteran, for veterans.">
+<meta property="twitter:image" content="https://mil-path.com/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --navy: #0D1F35;
+  --navy-mid: #1a3352;
+  --navy-light: #1e4080;
+  --gold: #C49A28;
+  --gold-light: #d4af3a;
+  --red: #8B1A1A;
+  --slate: #f2f4f8;
+  --text: #0f1923;
+  --muted: #5a6a7e;
+  --border: #dde3ee;
+  --white: #ffffff;
+  --radius: 14px;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  color: var(--text);
+  background: var(--white);
+  line-height: 1.6;
+  font-size: 16px;
+}
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(13, 31, 53, 0.97);
+  backdrop-filter: blur(12px);
+  padding: 0 5%;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 66px;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+
+.logo {
+  font-size: 22px; font-weight: 800; color: #fff; letter-spacing: -0.5px;
+  display: flex; align-items: center; gap: 10px;
+}
+.logo .logo-icon {
+  width: 34px; height: 34px; background: var(--gold);
+  border-radius: 8px; display: flex; align-items: center; justify-content: center;
+}
+.logo .logo-icon i { font-size: 18px; color: #fff; }
+.logo span { color: var(--gold); }
+
+.nav-links { display: flex; gap: 28px; list-style: none; }
+.nav-links a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s; }
+.nav-links a:hover { color: #fff; }
+
+.nav-cta {
+  background: var(--gold); color: #fff; border: none;
+  padding: 10px 22px; border-radius: 8px; font-size: 14px; font-weight: 700;
+  cursor: pointer; text-decoration: none; transition: background 0.2s;
+}
+.nav-cta:hover { background: var(--gold-light); }
+
+/* HERO */
+.hero {
+  background: var(--navy);
+  padding: 140px 5% 100px;
+  position: relative; overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse at 70% 20%, rgba(196,154,40,0.10) 0%, transparent 55%),
+    radial-gradient(ellipse at 10% 80%, rgba(30,64,128,0.5) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.hero-inner { max-width: 720px; position: relative; }
+
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(196,154,40,0.12); border: 1px solid rgba(196,154,40,0.35);
+  color: var(--gold); font-size: 13px; font-weight: 600;
+  padding: 6px 16px; border-radius: 99px; margin-bottom: 28px;
+}
+
+.hero h1 {
+  font-size: clamp(36px, 5vw, 60px); font-weight: 800;
+  color: #fff; line-height: 1.1; letter-spacing: -1.5px; margin-bottom: 22px;
+}
+.hero h1 em { color: var(--gold); font-style: normal; }
+
+.hero-sub {
+  font-size: clamp(17px, 2vw, 20px); color: rgba(255,255,255,0.65);
+  max-width: 580px; line-height: 1.65; margin-bottom: 36px;
+}
+
+.hero-form {
+  display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 18px;
+}
+.hero-input {
+  flex: 1; min-width: 220px; padding: 15px 20px;
+  border-radius: 10px; border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.08); color: #fff; font-size: 15px;
+  outline: none; font-family: inherit;
+  transition: border-color 0.2s;
+}
+.hero-input:focus { border-color: rgba(196,154,40,0.6); }
+.hero-input::placeholder { color: rgba(255,255,255,0.38); }
+
+.btn-gold {
+  background: var(--gold); color: #fff; border: none;
+  padding: 15px 28px; border-radius: 10px; font-size: 15px; font-weight: 700;
+  cursor: pointer; white-space: nowrap; font-family: inherit;
+  display: inline-flex; align-items: center; gap: 8px;
+  transition: background 0.2s, transform 0.15s;
+}
+.btn-gold:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+.hero-note { font-size: 13px; color: rgba(255,255,255,0.38); }
+
+.hero-proof {
+  display: flex; align-items: center; gap: 14px; margin-top: 48px;
+  padding-top: 40px; border-top: 1px solid rgba(255,255,255,0.1);
+  flex-wrap: wrap;
+}
+.proof-avatars { display: flex; }
+.proof-av {
+  width: 34px; height: 34px; border-radius: 50%; border: 2px solid var(--navy);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700; color: #fff; margin-left: -8px;
+}
+.proof-av:first-child { margin-left: 0; }
+.proof-text { font-size: 13px; color: rgba(255,255,255,0.55); }
+.proof-text strong { color: rgba(255,255,255,0.9); }
+
+/* PROBLEM SECTION */
+.problem-section { background: var(--slate); padding: 88px 5%; }
+.problem-inner { max-width: 1100px; margin: 0 auto; }
+
+.section-label {
+  font-size: 12px; font-weight: 700; letter-spacing: 1.5px;
+  text-transform: uppercase; color: var(--gold); margin-bottom: 12px;
+}
+.section-title {
+  font-size: clamp(28px, 3.5vw, 44px); font-weight: 800;
+  line-height: 1.15; letter-spacing: -0.8px; color: var(--text); margin-bottom: 16px;
+}
+.section-sub { font-size: 18px; color: var(--muted); max-width: 560px; line-height: 1.65; }
+
+.problem-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px; margin-top: 48px;
+}
+
+.problem-card {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 28px 24px;
+  border-left: 4px solid var(--red);
+}
+.problem-card h3 { font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+.problem-card p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+.problem-card .problem-icon { font-size: 26px; margin-bottom: 14px; color: var(--red); opacity: 0.8; }
+
+/* SOLUTION */
+.solution-section { padding: 88px 5%; }
+.solution-inner { max-width: 1100px; margin: 0 auto; }
+
+.solution-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px; margin-top: 48px;
+}
+
+.solution-card {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 30px 26px;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.solution-card:hover { box-shadow: 0 8px 32px rgba(13,31,53,0.1); transform: translateY(-2px); }
+.sol-icon {
+  width: 50px; height: 50px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; margin-bottom: 18px;
+}
+.solution-card h3 { font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+.solution-card p { font-size: 14px; color: var(--muted); line-height: 1.65; }
+
+/* FOUNDER */
+.founder-section { background: var(--navy); padding: 88px 5%; }
+.founder-inner { max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: auto 1fr; gap: 48px; align-items: center; }
+
+.founder-image {
+  width: 180px; height: 180px; border-radius: 50%;
+  background: var(--navy-light); border: 4px solid var(--gold);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.founder-image i { font-size: 72px; color: rgba(196,154,40,0.6); }
+
+.founder-quote {
+  font-size: clamp(18px, 2.5vw, 24px); font-weight: 600; color: #fff;
+  line-height: 1.5; margin-bottom: 24px; font-style: italic;
+}
+.founder-quote::before { content: '\201C'; color: var(--gold); font-size: 1.3em; }
+.founder-quote::after { content: '\201D'; color: var(--gold); font-size: 1.3em; }
+
+.founder-name { font-size: 16px; font-weight: 700; color: var(--gold); }
+.founder-title { font-size: 14px; color: rgba(255,255,255,0.55); margin-top: 3px; }
+
+.founder-badges { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 18px; }
+.f-badge {
+  display: flex; align-items: center; gap: 6px;
+  background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12);
+  color: rgba(255,255,255,0.75); font-size: 12px; font-weight: 500;
+  padding: 5px 12px; border-radius: 99px;
+}
+.f-badge i { font-size: 14px; color: var(--gold); }
+
+/* HOW IT WORKS */
+.hiw-section { background: var(--slate); padding: 88px 5%; }
+.hiw-inner { max-width: 1100px; margin: 0 auto; }
+
+.steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 32px; margin-top: 48px; position: relative; }
+
+.step { text-align: center; }
+.step-num {
+  width: 52px; height: 52px; border-radius: 50%;
+  background: var(--navy); color: var(--gold);
+  font-size: 20px; font-weight: 800;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 16px;
+}
+.step h3 { font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+.step p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+/* ROADMAP PREVIEW */
+.roadmap-section { padding: 88px 5%; }
+.roadmap-inner { max-width: 1100px; margin: 0 auto; }
+
+.roadmap-card {
+  background: var(--navy); border-radius: 18px; padding: 40px 44px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 48px;
+}
+.roadmap-col h3 { font-size: 14px; font-weight: 700; color: var(--gold); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; }
+.roadmap-item {
+  display: flex; gap: 12px; align-items: flex-start; margin-bottom: 14px;
+}
+.roadmap-item i { font-size: 18px; color: var(--gold); flex-shrink: 0; margin-top: 1px; }
+.roadmap-item p { font-size: 14px; color: rgba(255,255,255,0.75); line-height: 1.55; }
+
+/* PRICING */
+.pricing-section { background: var(--slate); padding: 88px 5%; }
+.pricing-inner { max-width: 900px; margin: 0 auto; text-align: center; }
+
+.pricing-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; margin-top: 48px; text-align: left; }
+
+.pricing-card {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 32px 28px;
+}
+.pricing-card.featured {
+  border: 2px solid var(--gold); position: relative;
+}
+.featured-badge {
+  position: absolute; top: -13px; left: 50%; transform: translateX(-50%);
+  background: var(--gold); color: #fff; font-size: 11px; font-weight: 700;
+  padding: 4px 14px; border-radius: 99px; white-space: nowrap; text-transform: uppercase; letter-spacing: 0.5px;
+}
+.pricing-name { font-size: 14px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+.pricing-price { font-size: 42px; font-weight: 800; color: var(--text); line-height: 1; }
+.pricing-price span { font-size: 18px; font-weight: 500; color: var(--muted); }
+.pricing-desc { font-size: 13px; color: var(--muted); margin: 10px 0 20px; }
+.pricing-divider { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+.pricing-feature {
+  display: flex; gap: 10px; align-items: flex-start; margin-bottom: 10px;
+  font-size: 14px; color: var(--text);
+}
+.pricing-feature i { font-size: 16px; color: var(--gold); flex-shrink: 0; margin-top: 1px; }
+.pricing-btn {
+  display: block; width: 100%; text-align: center;
+  padding: 13px; border-radius: 9px; font-size: 15px; font-weight: 700;
+  margin-top: 24px; cursor: pointer; text-decoration: none;
+  border: none; font-family: inherit; transition: background 0.2s;
+}
+.pricing-btn-primary { background: var(--gold); color: #fff; }
+.pricing-btn-primary:hover { background: var(--gold-light); }
+.pricing-btn-outline { background: transparent; color: var(--navy); border: 1.5px solid var(--border); }
+.pricing-btn-outline:hover { background: var(--slate); }
+
+/* FINAL CTA */
+.final-cta { background: var(--navy); padding: 96px 5%; text-align: center; }
+.final-cta h2 {
+  font-size: clamp(28px, 4vw, 50px); font-weight: 800; color: #fff;
+  letter-spacing: -1px; margin-bottom: 16px; max-width: 640px; margin-left: auto; margin-right: auto;
+}
+.final-cta p { font-size: 18px; color: rgba(255,255,255,0.6); margin-bottom: 36px; }
+.final-form { display: flex; gap: 10px; max-width: 480px; margin: 0 auto; flex-wrap: wrap; justify-content: center; }
+.final-note { font-size: 13px; color: rgba(255,255,255,0.35); margin-top: 14px; }
+
+/* FOOTER */
+footer {
+  background: #080f18; padding: 36px 5%;
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Hero entrance */
+.hero-badge    { opacity: 0; animation: fadeUp 0.6s ease 0.1s both; }
+.hero h1       { opacity: 0; animation: fadeUp 0.7s ease 0.25s both; }
+.hero-sub      { opacity: 0; animation: fadeUp 0.7s ease 0.4s both; }
+.hero-form     { opacity: 0; animation: fadeUp 0.7s ease 0.55s both; }
+.hero-note     { opacity: 0; animation: fadeUp 0.6s ease 0.65s both; }
+.hero-proof    { opacity: 0; animation: fadeUp 0.6s ease 0.8s both; }
+
+/* Scroll reveal base */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+.reveal.in { opacity: 1; transform: translateY(0); }
+
+.reveal-left {
+  opacity: 0; transform: translateX(-36px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+.reveal-left.in { opacity: 1; transform: translateX(0); }
+
+.reveal-right {
+  opacity: 0; transform: translateX(36px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+.reveal-right.in { opacity: 1; transform: translateX(0); }
+
+/* Stagger delays */
+.delay-1 { transition-delay: 0.1s; }
+.delay-2 { transition-delay: 0.2s; }
+.delay-3 { transition-delay: 0.3s; }
+.delay-4 { transition-delay: 0.4s; }
+.delay-5 { transition-delay: 0.5s; }
+.delay-6 { transition-delay: 0.6s; }
+
+/* Card hover polish */
+.problem-card { transition: box-shadow 0.25s, transform 0.25s; }
+.problem-card:hover { box-shadow: 0 6px 24px rgba(139,26,26,0.12); transform: translateY(-3px); }
+.pricing-card { transition: box-shadow 0.25s, transform 0.25s; }
+.pricing-card:hover { box-shadow: 0 8px 32px rgba(13,31,53,0.12); transform: translateY(-3px); }
+footer p { font-size: 13px; color: rgba(255,255,255,0.35); }
+.footer-links { display: flex; gap: 24px; }
+.footer-links a { font-size: 13px; color: rgba(255,255,255,0.4); text-decoration: none; }
+.footer-links a:hover { color: rgba(255,255,255,0.8); }
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .hero { padding: 110px 4% 72px; }
+  .founder-inner { grid-template-columns: 1fr; text-align: center; }
+  .founder-image { margin: 0 auto; }
+  .founder-badges { justify-content: center; }
+  .roadmap-card { grid-template-columns: 1fr; padding: 28px 24px; }
+  section, .problem-section, .solution-section, .hiw-section, .roadmap-section, .pricing-section, .founder-section, .final-cta { padding: 64px 4%; }
+  footer { flex-direction: column; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">
+    <img src="logo.png" alt="MilPath" style="height:52px; width:auto; display:block;">
+  </div>
+  <ul class="nav-links">
+    <li><a href="#problem">The problem</a></li>
+    <li><a href="#solution">What we do</a></li>
+    <li><a href="#how">How it works</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+  </ul>
+  <a href="#waitlist" class="nav-cta">Get early access</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">
+      <i class="ti ti-shield" style="font-size:13px;"></i>
+      Built by a veteran. For veterans.
+    </div>
+    <h1>Your military career<br>was anything but<br><em>average.</em></h1>
+    <p class="hero-sub">Your transition roadmap shouldn't be either. MilPath turns your Military Occupational Code, years of service, and goals into a personalized plan — resume translation, school options, benefit maximization, and a clear path forward.</p>
+
+    <form class="hero-form" onsubmit="handleSignup(event)">
+      <input class="hero-input" type="email" id="email-hero" placeholder="Your personal email address" />
+      <button type="submit" class="btn-gold"><i class="ti ti-arrow-right"></i> Join the waitlist</button>
+    </form>
+
+    <div class="hero-proof">
+      <div class="proof-avatars">
+        <div class="proof-av" style="background:#185FA5;">AF</div>
+        <div class="proof-av" style="background:#3B6D11;">AR</div>
+        <div class="proof-av" style="background:#854F0B;">MC</div>
+        <div class="proof-av" style="background:#993556;">NA</div>
+        <div class="proof-av" style="background:#534AB7;">CG</div>
+      </div>
+      <p class="proof-text"><strong>Founding members</strong> from all 5 branches are already on the waitlist</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section id="problem" class="problem-section">
+  <div class="problem-inner">
+    <div class="section-label reveal">The real problem</div>
+    <div class="section-title reveal">200,000 service members<br>separate every year.</div>
+    <div class="section-sub reveal">And most of them get handed a pamphlet and a 3-day TAP class. Here's what that actually looks like.</div>
+
+    <div class="problem-grid">
+      <div class="problem-card reveal"
+        <div class="problem-icon"><i class="ti ti-file-x"></i></div>
+        <h3>Resumes that don't translate</h3>
+        <p>"Managed logistics operations for 200-person element" means nothing to a civilian hiring manager. Your experience is real — it's just not being communicated right.</p>
+      </div>
+      <div class="problem-card reveal"
+        <div class="problem-icon"><i class="ti ti-map-pin-off"></i></div>
+        <h3>No real roadmap</h3>
+        <p>TAP class gives you a checklist. It doesn't give you a plan tailored to your Military Occupational Code, your goals, your timeline, or your family situation. Everyone gets the same generic playbook.</p>
+      </div>
+      <div class="problem-card reveal"
+        <div class="problem-icon"><i class="ti ti-coin-off"></i></div>
+        <h3>Benefits left on the table</h3>
+        <p>GI Bill, disability ratings, VA home loans, state-specific programs — most separating members don't know what they qualify for or how to stack benefits correctly.</p>
+      </div>
+      <div class="problem-card reveal"
+        <div class="problem-icon"><i class="ti ti-user-off"></i></div>
+        <h3>No one who's actually been there</h3>
+        <p>The people running transition assistance programs are often contractors reading slides. They've never worn the uniform. They don't know what you've actually done.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION -->
+<section id="solution" class="solution-section">
+  <div class="solution-inner">
+    <div class="section-label reveal">What MilPath does</div>
+    <div class="section-title reveal">A real plan. Built for you.<br>Not the guy next to you.</div>
+    <div class="section-sub reveal">Enter your Military Occupational Code, your years of service, your goals, and your timeline. MilPath builds the roadmap nobody gave you.</div>
+
+    <div class="solution-grid">
+      <div class="solution-card reveal delay-1">
+        <div class="sol-icon" style="background:#E6F1FB;"><i class="ti ti-file-description" style="color:#185FA5;"></i></div>
+        <h3>Resume translation engine</h3>
+        <p>Converts military job codes and jargon into civilian language that actually gets callbacks. Tailored by industry and role, not a generic template.</p>
+      </div>
+      <div class="solution-card reveal delay-2">
+        <div class="sol-icon" style="background:#EAF3DE;"><i class="ti ti-school" style="color:#3B6D11;"></i></div>
+        <h3>Education pathway finder</h3>
+        <p>Based on your GI Bill entitlement, career goals, and location — MilPath surfaces the right programs, schools, and certifications for your situation.</p>
+      </div>
+      <div class="solution-card reveal delay-3">
+        <div class="sol-icon" style="background:#FAEEDA;"><i class="ti ti-coin" style="color:#854F0B;"></i></div>
+        <h3>Benefits maximization</h3>
+        <p>Disability ratings, housing allowances, state bonuses, VA loans, SBA veteran programs — we map out what you qualify for and how to claim it.</p>
+      </div>
+      <div class="solution-card reveal delay-4">
+        <div class="sol-icon" style="background:#FAECE7;"><i class="ti ti-briefcase" style="color:#993C1D;"></i></div>
+        <h3>Career pathway matching</h3>
+        <p>Your Military Occupational Code translates to civilian roles you might not know exist. MilPath maps your skills to industries, job titles, and companies that actively recruit veterans.</p>
+      </div>
+      <div class="solution-card reveal delay-5">
+        <div class="sol-icon" style="background:#EEEDFE;"><i class="ti ti-building-store" style="color:#534AB7;"></i></div>
+        <h3>Business launch guide</h3>
+        <p>Want to start something? MilPath walks you through SBA veteran loans, franchise options, and business ideas that leverage military discipline and leadership.</p>
+      </div>
+      <div class="solution-card reveal delay-6">
+        <div class="sol-icon" style="background:#E1F5EE;"><i class="ti ti-route" style="color:#0F6E56;"></i></div>
+        <h3>90-day action plan</h3>
+        <p>Not a list of things to eventually do. A day-by-day roadmap for your first 90 days post-separation — so you're not staring at a blank calendar wondering what's next.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOUNDER -->
+<section class="founder-section">
+  <div class="founder-inner">
+    <div class="founder-image reveal-left" style="overflow:hidden; background:none; border:4px solid var(--gold);">
+      <img src="founder.jpg" alt="Founder" style="width:100%; height:100%; object-fit:cover; border-radius:50%;">
+    </div>
+    <div>
+      <div class="founder-quote reveal-right">I went through transition. I know exactly what's missing. The system hands you a checklist when what you actually need is a plan built around your specific service, your specific goals, and where you want to go next. That's what MilPath is.</div>
+      <div class="founder-name">Marcus Bronstad</div>
+      <div class="founder-title">Founder, MilPath &nbsp;|&nbsp; USAF Veteran &nbsp;|&nbsp; Master Instructor Accredited</div>
+      <div class="founder-badges">
+        <div class="f-badge"><i class="ti ti-shield"></i> 10 years USAF</div>
+        <div class="f-badge"><i class="ti ti-certificate"></i> Master Instructor</div>
+        <div class="f-badge"><i class="ti ti-chalkboard"></i> Military Training Instructor</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how" class="hiw-section">
+  <div class="hiw-inner">
+    <div class="section-label reveal">How it works</div>
+    <div class="section-title reveal">Your roadmap in minutes.</div>
+    <div class="section-sub reveal">No intake calls, no waiting rooms, no one reading slides at you. Just answers.</div>
+
+    <div class="steps">
+      <div class="step reveal delay-1">
+        <div class="step-num">1</div>
+        <h3>Enter your profile</h3>
+        <p>Branch, Military Occupational Code, years of service, education, goals, and timeline. Takes about 5 minutes.</p>
+      </div>
+      <div class="step reveal delay-2">
+        <div class="step-num">2</div>
+        <h3>Get your roadmap</h3>
+        <p>MilPath generates a personalized transition plan — resume, school options, career paths, benefit breakdown, and a 90-day action plan.</p>
+      </div>
+      <div class="step reveal delay-3">
+        <div class="step-num">3</div>
+        <h3>Ask anything</h3>
+        <p>Your AI advisor answers follow-up questions, helps you prep for interviews, and updates your plan as your situation changes.</p>
+      </div>
+      <div class="step reveal delay-4">
+        <div class="step-num">4</div>
+        <h3>Execute</h3>
+        <p>Follow the plan. Track your progress. Adjust as needed. MilPath stays with you through the whole transition — not just day one.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ROADMAP PREVIEW -->
+<section class="roadmap-section">
+  <div class="roadmap-inner">
+    <div class="section-label reveal">What you'll get</div>
+    <div class="section-title reveal">Your complete transition package.</div>
+
+    <div class="roadmap-card reveal">
+      <div class="roadmap-col">
+        <h3>Career and education</h3>
+        <div class="roadmap-item"><i class="ti ti-check"></i><p>Civilian resume translated from your Military Occupational Code</p></div>
+        <div class="roadmap-item"><i class="ti ti-check"></i><p>Top 5 career paths matched to your skills</p></div>
+        <div class="roadmap-item"><i class="ti ti-check"></i><p>GI Bill school and program recommendations</p></div>
+        <div class="roadmap-item"><i class="ti ti-check"></i><p>Certifications that translate your training</p></div>
+        <div class="roadmap-item"><i class="ti ti-check"></i><p>LinkedIn profile optimization guide</p></div>
+      </div>
+      <div class="roadmap-col">
+        <h3>Benefits and finances</h3>
+        <div class="roadmap-item"><i class="ti ti-check"></i><p>Full VA benefits eligibility breakdown</p></div>
+        <div class="roadmap-item"><i class="ti ti-check"></i><p>Disability rating guidance and filing steps</p></div>
+        <div class="roadmap-item"><i class="ti ti-check"></i><p>State veteran benefits by your location</p></div>
+        <div class="roadmap-item"><i class="ti ti-check"></i><p>VA home loan walkthrough</p></div>
+        <div class="roadmap-item"><i class="ti ti-check"></i><p>90-day post-separation budget plan</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DISCOUNTS -->
+<section class="solution-section" id="discounts" style="background:var(--navy);">
+  <div class="solution-inner">
+    <div class="section-label reveal">Member Benefits</div>
+    <div class="section-title" style="color:#fff;">Hundreds of dollars in<br>discounts. Included.</div>
+    <div class="section-sub reveal" style="color:rgba(255,255,255,0.6);">Every MilPath membership includes access to a full directory of military and veteran discounts — updated regularly, verified, and organized so you can actually find them.</div>
+
+    <div class="solution-grid" style="margin-top:48px;">
+
+      <div class="solution-card" style="background:rgba(255,255,255,0.05); border-color:rgba(255,255,255,0.1);">
+        <div class="sol-icon" style="background:rgba(196,154,40,0.15);"><i class="ti ti-shopping-bag" style="color:var(--gold);"></i></div>
+        <h3 style="color:#fff;">Retail & Everyday</h3>
+        <p style="color:rgba(255,255,255,0.6);">Home Depot, Lowe's, Apple, Dell, Amazon, Walmart, Target, and dozens more — all offering verified military discounts on everyday purchases.</p>
+      </div>
+
+      <div class="solution-card" style="background:rgba(255,255,255,0.05); border-color:rgba(255,255,255,0.1);">
+        <div class="sol-icon" style="background:rgba(196,154,40,0.15);"><i class="ti ti-plane" style="color:var(--gold);"></i></div>
+        <h3 style="color:#fff;">Travel & Hotels</h3>
+        <p style="color:rgba(255,255,255,0.6);">Military rates at Marriott, Hilton, IHG, and Holiday Inn. Discounted fares on American, Delta, and United. Rental car deals through Enterprise and Hertz.</p>
+      </div>
+
+      <div class="solution-card" style="background:rgba(255,255,255,0.05); border-color:rgba(255,255,255,0.1);">
+        <div class="sol-icon" style="background:rgba(196,154,40,0.15);"><i class="ti ti-car" style="color:var(--gold);"></i></div>
+        <h3 style="color:#fff;">Auto & Insurance</h3>
+        <p style="color:rgba(255,255,255,0.6);">USAA, GEICO military rates, Ford and GM military pricing programs, and reduced auto loan rates through veteran-friendly lenders.</p>
+      </div>
+
+      <div class="solution-card" style="background:rgba(255,255,255,0.05); border-color:rgba(255,255,255,0.1);">
+        <div class="sol-icon" style="background:rgba(196,154,40,0.15);"><i class="ti ti-heart-rate-monitor" style="color:var(--gold);"></i></div>
+        <h3 style="color:#fff;">Health & Fitness</h3>
+        <p style="color:rgba(255,255,255,0.6);">Planet Fitness, Gold's Gym, and Anytime Fitness military memberships. Discounts on supplements, gear, and mental health apps like BetterHelp.</p>
+      </div>
+
+      <div class="solution-card" style="background:rgba(255,255,255,0.05); border-color:rgba(255,255,255,0.1);">
+        <div class="sol-icon" style="background:rgba(196,154,40,0.15);"><i class="ti ti-device-laptop" style="color:var(--gold);"></i></div>
+        <h3 style="color:#fff;">Tech & Software</h3>
+        <p style="color:rgba(255,255,255,0.6);">Microsoft 365, Adobe Creative Cloud, Coursera, LinkedIn Learning, and more — discounted or free for service members and veterans actively using their benefits.</p>
+      </div>
+
+      <div class="solution-card" style="background:rgba(255,255,255,0.05); border-color:rgba(255,255,255,0.1);">
+        <div class="sol-icon" style="background:rgba(196,154,40,0.15);"><i class="ti ti-ticket" style="color:var(--gold);"></i></div>
+        <h3 style="color:#fff;">Entertainment & Dining</h3>
+        <p style="color:rgba(255,255,255,0.6);">National Parks free admission (America the Beautiful pass), Disney, SeaWorld, AMC Theatres, and hundreds of restaurants with veteran and active duty pricing.</p>
+      </div>
+
+    </div>
+
+    <div style="margin-top:48px; background:rgba(196,154,40,0.1); border:1px solid rgba(196,154,40,0.3); border-radius:14px; padding:28px 32px; display:flex; align-items:center; gap:20px; flex-wrap:wrap;">
+      <i class="ti ti-lock-open" style="font-size:32px; color:var(--gold); flex-shrink:0;"></i>
+      <div>
+        <div style="font-size:16px; font-weight:700; color:#fff; margin-bottom:4px;">Included with every membership tier.</div>
+        <div style="font-size:14px; color:rgba(255,255,255,0.6);">Whether you're E1 or O6, full discount directory access is part of your plan. No separate fee, no upsell.</div>
+      </div>
+      <a href="#waitlist" class="btn-gold" style="margin-left:auto; text-decoration:none; padding:12px 24px; border-radius:10px; font-size:14px;">Join the waitlist</a>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing" class="pricing-section">
+  <div class="pricing-inner">
+    <div class="section-label reveal">Pricing</div>
+    <div class="section-title reveal">Priced by pay grade.<br>Not by what we can get away with.</div>
+    <div class="section-sub reveal" style="margin: 0 auto;">Everyone gets the full platform. You pay based on what you're earning — because an E-2 shouldn't pay the same as a colonel.</div>
+
+    <div class="pricing-cards">
+      <div class="pricing-card reveal delay-1">
+        <div class="pricing-name">E1 – E4</div>
+        <div class="pricing-price">$15<span>/mo</span></div>
+        <div class="pricing-desc">Junior enlisted. Full access, no compromises.</div>
+        <hr class="pricing-divider">
+        <div class="pricing-feature"><i class="ti ti-check"></i> Personalized transition roadmap</div>
+        <div class="pricing-feature"><i class="ti ti-check"></i> Resume translation tool</div>
+        <div class="pricing-feature"><i class="ti ti-check"></i> Benefits eligibility breakdown</div>
+        <div class="pricing-feature"><i class="ti ti-check"></i> Career pathway matching</div>
+        <div class="pricing-feature"><i class="ti ti-check"></i> Education pathway finder</div>
+        <div class="pricing-feature"><i class="ti ti-check"></i> 90-day action plan</div>
+        <div class="pricing-feature"><i class="ti ti-check"></i> Unlimited AI advisor access</div>
+        <a href="#waitlist" class="pricing-btn pricing-btn-outline">Join waitlist</a>
+      </div>
+
+      <div class="pricing-card featured reveal delay-2">
+        <div class="featured-badge">Most members</div>
+        <div class="pricing-name">E5 – E7 &nbsp;/&nbsp; W1 – W3 &nbsp;/&nbsp; O1 – O3</div>
+        <div class="pricing-price">$25<span>/mo</span></div>
+        <div class="pricing-desc">NCOs, junior warrants, and junior officers.</div>
+        <hr class="pricing-divider">
+        <div class="pricing-feature"><i class="ti ti-check"></i> Personalized transition roadmap</div>
+        <div class="pricing-feature"><i class="ti ti-check"></i> Resume translation tool</div>
+        <div class="pricing-feature"><i class="ti ti-check"></i> Benefits eligibility breakdown</div>
+        <div class="pricing-feature"><i class="ti ti-check"></i> Career pathway matching</div>
+        <div class="pricing-feature"><i class="ti ti-check"></i> Education pathway finder</div>
+        <div class="pricing-feature"><i class="ti ti-check"></i> 90-day action plan</div>
+        <div class="pricing-feature"><i class="ti ti-check"></i> Unlimited AI advisor access</div>
+        <a href="#waitlist" class="pricing-btn pricing-btn-primary">Join waitlist</a>
+      </div>
+
+      <div class="pricing-card reveal delay-2">
+        <div class="pricing-name">E8 – E9 &nbsp;/&nbsp; W4 – W5 &nbsp;/&nbsp; O4+</div>
+        <div class="pricing-price">$50<span>/mo</span></div>
+        <div class="pricing-desc">Senior enlisted, senior warrants, and field grade officers.</div>
+        <hr class="pricing-divider">
+        <div class="pricing-feature"><i class="ti ti-check"></i> Personalized transition roadmap</div>
+        <div class="pricing-feature"><i class="ti ti-check"></i> Resume translation tool</div>
+        <div class="pricing-feature"><i class="ti ti-check"></i> Benefits eligibility breakdown</div>
+        <div class="pricing-feature"><i class="ti ti-check"></i> Career pathway matching</div>
+        <div class="pricing-feature"><i class="ti ti-check"></i> Education pathway finder</div>
+        <div class="pricing-feature"><i class="ti ti-check"></i> 90-day action plan</div>
+        <div class="pricing-feature"><i class="ti ti-check"></i> Unlimited AI advisor access</div>
+        <a href="#waitlist" class="pricing-btn pricing-btn-outline">Join waitlist</a>
+      </div>
+    </div>
+
+    <!-- SUBSCRIPTION REASSURANCE -->
+    <div style="display:flex; justify-content:center; gap:12px; flex-wrap:wrap; margin:32px 0 0;">
+      <div style="display:flex; align-items:center; gap:8px; background:var(--slate); border:1px solid var(--border); border-radius:99px; padding:8px 18px; font-size:13px; font-weight:600; color:var(--text);">
+        <i class="ti ti-x" style="color:var(--red); font-size:15px;"></i> Cancel anytime
+      </div>
+      <div style="display:flex; align-items:center; gap:8px; background:var(--slate); border:1px solid var(--border); border-radius:99px; padding:8px 18px; font-size:13px; font-weight:600; color:var(--text);">
+        <i class="ti ti-calendar" style="color:var(--gold); font-size:15px;"></i> Pay month to month
+      </div>
+      <div style="display:flex; align-items:center; gap:8px; background:var(--slate); border:1px solid var(--border); border-radius:99px; padding:8px 18px; font-size:13px; font-weight:600; color:var(--text);">
+        <i class="ti ti-shield-check" style="color:var(--navy); font-size:15px;"></i> No long-term contracts
+      </div>
+    </div>
+    <p style="text-align:center; font-size:13px; color:var(--muted); margin:14px auto 32px; max-width:480px;">You control your subscription. Choose how many months you need — pay for exactly that, nothing more. Done with your transition? Cancel in one click. No penalties, no runaround.</p>
+
+    <div style="max-width:560px; margin:0 auto 0; background:var(--navy); border-radius:var(--radius); padding:32px 36px; text-align:left;">
+      <div class="pricing-name" style="color:rgba(255,255,255,0.5);">Institutional</div>
+      <div class="pricing-price" style="color:#fff;">$1,200<span style="color:rgba(255,255,255,0.5);">/yr</span></div>
+      <div class="pricing-desc" style="color:rgba(255,255,255,0.55); margin:8px 0 20px;">For VSOs, TAP programs, and military installations.</div>
+      <hr style="border:none; border-top:1px solid rgba(255,255,255,0.1); margin-bottom:20px;">
+      <div class="pricing-feature" style="color:rgba(255,255,255,0.8);"><i class="ti ti-check" style="color:var(--gold);"></i> Access codes for every member in your class</div>
+      <div class="pricing-feature" style="color:rgba(255,255,255,0.8);"><i class="ti ti-check" style="color:var(--gold);"></i> First month free for each member (covers the full TAP window)</div>
+      <div class="pricing-feature" style="color:rgba(255,255,255,0.8);"><i class="ti ti-check" style="color:var(--gold);"></i> Members continue on their own after month one at individual pricing</div>
+      <div class="pricing-feature" style="color:rgba(255,255,255,0.8);"><i class="ti ti-check" style="color:var(--gold);"></i> Admin dashboard to track class enrollment and progress</div>
+      <div class="pricing-feature" style="color:rgba(255,255,255,0.8);"><i class="ti ti-check" style="color:var(--gold);"></i> Unlimited cohorts per year — run as many classes as you need</div>
+      <div class="pricing-feature" style="color:rgba(255,255,255,0.8);"><i class="ti ti-check" style="color:var(--gold);"></i> Priority support</div>
+      <a href="mailto:brontechnologiesllc@gmail.com" class="pricing-btn pricing-btn-primary" style="text-align:center; display:block; margin-top:24px;">Get in touch</a>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section id="waitlist" class="final-cta">
+  <h2>Your service meant something.<br>Your next chapter should too.</h2>
+  <p>Join the waitlist. Be first in when we launch.</p>
+  <form class="final-form" action="https://app.kit.com/forms/9558681/subscriptions" method="post" target="_blank">
+    <input class="hero-input" type="email" name="email_address" placeholder="Your email address" style="min-width:240px;" required />
+    <button type="submit" class="btn-gold">Get early access <i class="ti ti-arrow-right"></i></button>
+  <p style="font-size:12px; color:rgba(255,255,255,0.45); margin-top:8px;">Use a personal email — not a .mil or work address.</p>
+  <p class="final-note">We'll never sell your information. Ever.</p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="logo" style="font-size:18px;">
+    <img src="logo.png" alt="MilPath" style="height:44px; width:auto; display:block;">
+  </div>
+  <p>A Bron Technologies product &nbsp;|&nbsp; brontechnologiesllc@gmail.com</p>
+  <div class="footer-links">
+    <a href="#">Privacy</a>
+    <a href="#">Terms</a>
+    <a href="#">Contact</a>
+  </div>
+</footer>
+
+<script>
+function handleSignup(e) {
+  e.preventDefault();
+  const emailId = e.target.querySelector('input[type="email"]').id;
+  const email = document.getElementById(emailId).value;
+  if (!email || !email.includes('@')) return;
+  e.target.innerHTML = '<p style="color:#C49A28; font-size:16px; font-weight:600;">&#10003; You\'re on the list. We\'ll be in touch.</p>';
+}
+</script>
+
+
+<script>
+// Scroll reveal
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('in');
+      io.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
